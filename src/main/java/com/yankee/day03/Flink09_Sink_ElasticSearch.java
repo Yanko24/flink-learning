@@ -22,7 +22,7 @@ import java.util.HashMap;
  * @description sink-es
  * @since 2021/7/14
  */
-public class Flink_Sink_ElasticSearch {
+public class Flink09_Sink_ElasticSearch {
     public static void main(String[] args) throws Exception {
         // 1.获取流执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
