@@ -43,8 +43,9 @@ public class Flink12_Sink_MyOracleSink {
 
             @Override
             public void open(Configuration parameters) throws Exception {
+                // Class.forName("oracle.jdbc.OracleDriver");
                 connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "yankee", "xiaoer");
-                preparedStatement = connection.prepareStatement("insert into sensor (id, ts, vc) values (?, ?, ?)");
+                preparedStatement = connection.prepareStatement("merge into sensor a using (select ? as id from dual) b on (a.id = b.id) when matched then update set a.ts = ?, a.vc = ? when not matched then insert values (?, ?, ?)");
                 log.info("连接创建完成！");
             }
 
@@ -54,6 +55,9 @@ public class Flink12_Sink_MyOracleSink {
                 preparedStatement.setString(1, value.getId());
                 preparedStatement.setLong(2, value.getTs());
                 preparedStatement.setInt(3, value.getVc());
+                preparedStatement.setString(4, value.getId());
+                preparedStatement.setLong(5, value.getTs());
+                preparedStatement.setInt(6, value.getVc());
 
                 // 执行操作
                 preparedStatement.execute();
