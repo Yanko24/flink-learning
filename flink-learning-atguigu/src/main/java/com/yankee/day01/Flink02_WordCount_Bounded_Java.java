@@ -23,7 +23,7 @@ public class Flink02_WordCount_Bounded_Java {
         env.setParallelism(1);
 
         // 2.读取文件
-        DataStreamSource<String> input = env.readTextFile("input");
+        DataStreamSource<String> input = env.readTextFile("flink-learning-atguigu/input/word.txt");
 
         // 3.压平并转换成元组
         SingleOutputStreamOperator<Tuple2<String, Integer>> lineToTupleDS = input.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {

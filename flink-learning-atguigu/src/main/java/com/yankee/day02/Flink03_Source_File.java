@@ -19,7 +19,7 @@ public class Flink03_Source_File {
         env.setParallelism(1);
 
         // 2.从文件中读取数据
-        DataStreamSource<String> waterSensorsDS = env.readTextFile("input/waterSensor.txt");
+        DataStreamSource<String> waterSensorsDS = env.readTextFile("flink-learning-atguigu/input/waterSensor.txt");
 
         // 3.转换为实体类
         SingleOutputStreamOperator<WaterSensor_Java> mapDS = waterSensorsDS.map(new MapFunction<String, WaterSensor_Java>() {

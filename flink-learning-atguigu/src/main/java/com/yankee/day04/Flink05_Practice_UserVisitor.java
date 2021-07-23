@@ -25,7 +25,7 @@ public class Flink05_Practice_UserVisitor {
         env.setParallelism(1);
 
         // 2.从文件中读取数据
-        DataStreamSource<String> readTextFile = env.readTextFile("input/UserBehavior.csv");
+        DataStreamSource<String> readTextFile = env.readTextFile("flink-learning-atguigu/input/UserBehavior.csv");
 
         // 3.转换成JavaBean对象
         SingleOutputStreamOperator<UserBehavior> userBehaviorDS = readTextFile.flatMap(new FlatMapFunction<String, UserBehavior>() {

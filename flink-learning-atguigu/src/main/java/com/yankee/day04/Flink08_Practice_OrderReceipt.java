@@ -25,8 +25,8 @@ public class Flink08_Practice_OrderReceipt {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         // 2.读取文本数据创建流
-        DataStreamSource<String> orderStreamDS = env.readTextFile("input/OrderLog.csv");
-        DataStreamSource<String> receiptStreamDS = env.readTextFile("input/ReceiptLog.csv");
+        DataStreamSource<String> orderStreamDS = env.readTextFile("flink-learning-atguigu/input/OrderLog.csv");
+        DataStreamSource<String> receiptStreamDS = env.readTextFile("flink-learning-atguigu/input/ReceiptLog.csv");
 
         // 3.转换为JavaBean并过滤
         SingleOutputStreamOperator<OrderEvent> orderEventDS = orderStreamDS.map(data -> {

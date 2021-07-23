@@ -22,7 +22,7 @@ public class Flink07_Practice_AdsClick {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         // 2.从文件中读取数据
-        DataStreamSource<String> textFile = env.readTextFile("input/AdClickLog.csv");
+        DataStreamSource<String> textFile = env.readTextFile("flink-learning-atguigu/input/AdClickLog.csv");
 
         // 3.转换成JavaBean对象
         SingleOutputStreamOperator<Tuple2<Tuple2<String, Long>, Long>> adsClickDS = textFile.map(new MapFunction<String, AdsClickLog>() {

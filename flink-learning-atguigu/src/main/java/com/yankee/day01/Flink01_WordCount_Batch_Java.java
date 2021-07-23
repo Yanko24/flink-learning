@@ -21,7 +21,7 @@ public class Flink01_WordCount_Batch_Java {
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
         // 2.读取文件数据
-        DataSource<String> input = env.readTextFile("input");
+        DataSource<String> input = env.readTextFile("flink-learning-atguigu/input/word.txt");
 
         // 3.压平
         FlatMapOperator<String, String> wordDS = input.flatMap(new FlatMapFunction<String, String>() {

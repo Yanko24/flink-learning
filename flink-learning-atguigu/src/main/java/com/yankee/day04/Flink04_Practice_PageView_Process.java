@@ -23,7 +23,7 @@ public class Flink04_Practice_PageView_Process {
         env.setParallelism(1);
         
         // 2.从文件中读取数据
-        DataStreamSource<String> textFile = env.readTextFile("input/UserBehavior.csv");
+        DataStreamSource<String> textFile = env.readTextFile("flink-learning-atguigu/input/UserBehavior.csv");
         
         // 3.转换成JavaBean
         SingleOutputStreamOperator<UserBehavior> userBehaviorDS = textFile.map(new MapFunction<String, UserBehavior>() {

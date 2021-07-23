@@ -18,7 +18,7 @@ public class Flink08_Transform_Map {
         env.setParallelism(1);
 
         // 2.读取数据
-        DataStreamSource<String> textFile = env.readTextFile("input/waterSensor.txt");
+        DataStreamSource<String> textFile = env.readTextFile("flink-learning-atguigu/input/waterSensor.txt");
 
         // 3.转换成JavaBean对象
         SingleOutputStreamOperator<Object> mapDS = textFile.map(value -> {

@@ -20,7 +20,7 @@ public class Flink13_Transform_RichFilter {
         env.setParallelism(1);
 
         // 2.Read data from the textFile.
-        DataStreamSource<String> textFile = env.readTextFile("input/waterSensor.txt");
+        DataStreamSource<String> textFile = env.readTextFile("flink-learning-atguigu/input/waterSensor.txt");
 
         // 3.Conversion operator richFilter
         SingleOutputStreamOperator<String> filterDS = textFile.filter(new RichFilterFunction<String>() {

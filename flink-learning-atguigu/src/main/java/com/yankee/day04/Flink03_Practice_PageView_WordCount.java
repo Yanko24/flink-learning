@@ -21,7 +21,7 @@ public class Flink03_Practice_PageView_WordCount {
         env.setParallelism(1);
 
         // 2.从文本中读取数据
-        DataStreamSource<String> readTextFile = env.readTextFile("input/UserBehavior.csv");
+        DataStreamSource<String> readTextFile = env.readTextFile("flink-learning-atguigu/input/UserBehavior.csv");
 
         // 3.转换为实体类并过滤
         SingleOutputStreamOperator<Tuple2<String, Integer>> userBehaviorDS = readTextFile.map(new MapFunction<String, Tuple2<String, Integer>>() {

@@ -1,6 +1,5 @@
 package com.yankee.day03;
 
-import com.alibaba.fastjson.JSON;
 import com.yankee.bean.WaterSensor_Java;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -9,7 +8,6 @@ import org.apache.flink.streaming.connectors.redis.common.config.FlinkJedisPoolC
 import org.apache.flink.streaming.connectors.redis.common.mapper.RedisCommand;
 import org.apache.flink.streaming.connectors.redis.common.mapper.RedisCommandDescription;
 import org.apache.flink.streaming.connectors.redis.common.mapper.RedisMapper;
-import org.springframework.boot.autoconfigure.session.SessionProperties;
 
 /**
  * @author Yankee
