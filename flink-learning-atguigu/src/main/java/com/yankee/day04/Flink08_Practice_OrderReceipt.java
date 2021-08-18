@@ -2,6 +2,7 @@ package com.yankee.day04;
 
 import com.yankee.bean.OrderEvent;
 import com.yankee.bean.TxEvent;
+import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.ConnectedStreams;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
@@ -29,10 +30,20 @@ public class Flink08_Practice_OrderReceipt {
         DataStreamSource<String> receiptStreamDS = env.readTextFile("flink-learning-atguigu/input/ReceiptLog.csv");
 
         // 3.转换为JavaBean并过滤
-        SingleOutputStreamOperator<OrderEvent> orderEventDS = orderStreamDS.map(data -> {
-            String[] datas = data.split(",");
-            return new OrderEvent(Long.parseLong(datas[0]), datas[1], datas[2], Long.parseLong(datas[3]));
-        }).filter(data -> "pay".equals(data.getEventType()));
+        // SingleOutputStreamOperator<OrderEvent> orderEventDS = orderStreamDS.map(data -> {
+        //     String[] datas = data.split(",");
+        //     return new OrderEvent(Long.parseLong(datas[0]), datas[1], datas[2], Long.parseLong(datas[3]));
+        // }).filter(data -> "pay".equals(data.getEventType()));
+        SingleOutputStreamOperator<OrderEvent> orderEventDS = orderStreamDS.flatMap(new FlatMapFunction<String, OrderEvent>() {
+            @Override
+            public void flatMap(String value, Collector<OrderEvent> out) throws Exception {
+                String[] datas = value.split(",");
+                OrderEvent orderEvent = new OrderEvent(Long.parseLong(datas[0]), datas[1], datas[2], Long.parseLong(datas[3]));
+                if ("pay".equals(orderEvent.getEventType())) {
+                    out.collect(orderEvent);
+                }
+            }
+        });
         SingleOutputStreamOperator<TxEvent> txEventDS = receiptStreamDS.map(data -> {
             String[] datas = data.split(",");
             return new TxEvent(datas[0], datas[1], Long.parseLong(datas[2]));
@@ -70,6 +81,9 @@ public class Flink08_Practice_OrderReceipt {
                 }
             }
         });
+
+        // 查询StreamGraph
+        System.out.println(env.getExecutionPlan());
 
         // 7.打印
         result.print("实时对账");
