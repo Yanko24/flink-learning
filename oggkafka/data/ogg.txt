@@ -1,0 +1,124 @@
+CREATE TABLE bill_change_topic (
+	`table` varchar,
+	op_type varchar,
+	op_ts varchar,
+	current_ts varchar,
+	pos varchar,
+	primary_keys array<varchar>,
+	after row<
+	TRANDT varchar,
+	BILLSQ varchar,
+	TRANSQ varchar,
+	ACCTBR varchar,
+	ACCTID varchar,
+	ACCTNO varchar,
+	SUBSAC varchar,
+	TRANTP varchar,
+	AMNTCD varchar,
+	CRCYCD varchar,
+	TRANAM varchar,
+	TRANBL varchar,
+	TRANBR varchar,
+	SMRYCD varchar,
+	TOACCT varchar,
+	TOSBAC varchar,
+	TOACNA varchar,
+	CQTPID varchar,
+	CHEQTP varchar,
+	CHEQNO varchar,
+	BKUSID varchar,
+	CKBKUS varchar,
+	CORRTG varchar,
+	DSCRTX varchar,
+	TIMSTP varchar,
+	SERVTP varchar>,
+	before row<
+	TRANDT varchar,
+	BILLSQ varchar,
+	TRANSQ varchar,
+	ACCTBR varchar,
+	ACCTID varchar,
+	ACCTNO varchar,
+	SUBSAC varchar,
+	TRANTP varchar,
+	AMNTCD varchar,
+	CRCYCD varchar,
+	TRANAM varchar,
+	TRANBL varchar,
+	TRANBR varchar,
+	SMRYCD varchar,
+	TOACCT varchar,
+	TOSBAC varchar,
+	TOACNA varchar,
+	CQTPID varchar,
+	CHEQTP varchar,
+	CHEQNO varchar,
+	BKUSID varchar,
+	CKBKUS varchar,
+	CORRTG varchar,
+	DSCRTX varchar,
+	TIMSTP varchar,
+	SERVTP varchar>
+) WITH (
+	'connector' = 'kafka',
+	'topic' = 'bill_change_topic',
+	'properties.bootstrap.servers' = 'master:9092,slave1:9092,salve2:9092',
+	'scan.startup.mode' = 'earliest-offset',
+	'properties.group.id' = 'test',
+	'format' = 'json'
+)
+
+CREATE TABLE redis_side (
+	ACCTNO varchar,
+	CUSTNO varchar
+) WITH (
+	'connector' = 'redis',
+	'host' = '127.0.0.1',
+	'port' = '6379',
+	'redis-mode' = 'single',
+	'additional-key' = 'acctno_custno',
+	'key-column' = 'ACCTNO',
+	'value-column' = 'CUSTNO',
+	'password' = 'xiaoer',
+	'command' = 'HSET'
+)
+
+CREATE TABLE bill_change_custno_topic (
+	msgparams row<
+	sceneCode varchar,
+	silentSwitch varchar>,
+	dataparams row<
+	ACCTNO varchar,
+	TOACCT varchar,
+	TRANAM varchar,
+	TIMSTP varchar,
+	DSCRTX varchar,
+	AMNTCD varchar,
+	CUSTNO varchar>
+) WITH (
+	'connector' = 'kafka',
+	'topic' = 'bill_change_custno_topic',
+	'properties.bootstrap.servers' = 'master:9092,slave1:9092,slave2:9092',
+	'format' = 'json'
+)
+
+INSERT INTO
+	bill_change_custno_topic
+SELECT
+	('模板', '0000') as msgparams,
+	(
+		bct.after.ACCTNO,
+		bct.after.TOACCT,
+		bct.after.TRANAM,
+		bct.after.TIMSTP,
+		bct.after.DSCRTX,
+		bct.after.AMNTCD,
+		rs.CUSTNO
+	) as dataparams
+FROM bill_change_topic bct
+JOIN redis_side rs ON rs.ACCTNO = '1111'
+WHERE bct.op_type = 'U'
+
+
+{"table":"CBMAIN.KDL_BILL","op_type":"U","op_ts":"2021-10-14 17:14:00.523297","current_ts":"2021-10-14T17:14:07.052000","pos":"00000000050001564502","primary_keys":["TRANDT","BILLSQ"],"before":{"TRANDT":"20210320","BILLSQ":"00004501","TRANSQ":"M00020000845","ACCTBR":"013201","ACCTID":"1009748499","ACCTNO":"0109000000001113001008","SUBSAC":"00001","TRANTP":"TR","AMNTCD":"D","CRCYCD":"01","TRANAM":6421.23,"TRANBL":97614188.12,"TRANBR":"010001","SMRYCD":"GS","TOACCT":null,"TOSBAC":null,"TOACNA":null,"CQTPID":null,"CHEQTP":null,"CHEQNO":null,"BKUSID":"M0002","CKBKUS":null,"CORRTG":"0","DSCRTX":"#017701320120070007@待报解预算收入","TIMSTP":"20211014 171337 362589","SERVTP":"SYS"},"after":{"TRANDT":"20210320","BILLSQ":"00004501","TRANSQ":"M00020000845","ACCTBR":"013201","ACCTID":"1009748499","ACCTNO":"0109000000001113001008","SUBSAC":"00001","TRANTP":"TR","AMNTCD":"D","CRCYCD":"01","TRANAM":6421.23,"TRANBL":97614188.12,"TRANBR":"010001","SMRYCD":"GS","TOACCT":null,"TOSBAC":null,"TOACNA":null,"CQTPID":null,"CHEQTP":null,"CHEQNO":null,"BKUSID":"M0002","CKBKUS":null,"CORRTG":"0","DSCRTX":"#017701320120070007@待报解预算收入","TIMSTP":"20211014 171337 362589","SERVTP":"SYS"}}
+{"table":"CBMAIN.KDL_BILL","op_type":"I","op_ts":"2021-10-14 17:14:00.523297","current_ts":"2021-10-14T17:14:07.052000","pos":"00000000050001564502","primary_keys":["TRANDT","BILLSQ"],"after":{"TRANDT":"20210320","BILLSQ":"00004501","TRANSQ":"M00020000845","ACCTBR":"013201","ACCTID":"1009748499","ACCTNO":"0109000000001113001008","SUBSAC":"00001","TRANTP":"TR","AMNTCD":"D","CRCYCD":"01","TRANAM":6421.23,"TRANBL":97614188.12,"TRANBR":"010001","SMRYCD":"GS","TOACCT":null,"TOSBAC":null,"TOACNA":null,"CQTPID":null,"CHEQTP":null,"CHEQNO":null,"BKUSID":"M0002","CKBKUS":null,"CORRTG":"0","DSCRTX":"#017701320120070007@待报解预算收入","TIMSTP":"20211014 171337 362589","SERVTP":"SYS"}}
