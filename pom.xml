@@ -12,6 +12,7 @@
         <module>demo</module>
         <module>flink-learning-atguigu</module>
         <module>oggkafka</module>
+        <module>flink-sql</module>
     </modules>
 
     <properties>
