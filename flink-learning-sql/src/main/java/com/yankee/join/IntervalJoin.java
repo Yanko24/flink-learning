@@ -61,7 +61,7 @@ public class IntervalJoin {
             "\t'connector' = 'kafka',\n" +
             "\t'topic' = 'flink_sql_out',\n" +
             "\t'properties.bootstrap.servers' = 'hadoop01:9092,hadoop02:9092,hadoop03:9092',\n" +
-            "\t'format' = 'json'\t \t \t\n" +
+            "\t'format' = 'json'\n" +
             ")";
 
     private final static String intervalJoin = "INSERT INTO\n" +
