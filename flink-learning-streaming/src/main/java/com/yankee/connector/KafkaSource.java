@@ -15,7 +15,6 @@ import org.apache.flink.streaming.connectors.kafka.KafkaSerializationSchema;
 import org.apache.flink.streaming.connectors.kafka.internals.KafkaTopicPartition;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -61,14 +60,11 @@ public class KafkaSource {
                 .sum(1);
 
         // 添加ksink
-        FlinkKafkaProducer<Tuple2<String, Integer>> sink = new FlinkKafkaProducer<>(SINK_TOPIC, new KafkaSerializationSchema<Tuple2<String, Integer>>() {
-            @Override
-            public ProducerRecord<byte[], byte[]> serialize(Tuple2<String, Integer> value, @Nullable Long aLong) {
-                JSONObject json = new JSONObject();
-                json.put(value.f0, value.f1);
-                byte[] bytes = JSONObject.toJSONBytes(json);
-                return new ProducerRecord<>(SINK_TOPIC, bytes);
-            }
+        FlinkKafkaProducer<Tuple2<String, Integer>> sink = new FlinkKafkaProducer<>(SINK_TOPIC, (KafkaSerializationSchema<Tuple2<String, Integer>>) (value, aLong) -> {
+            JSONObject json = new JSONObject();
+            json.put(value.f0, value.f1);
+            byte[] bytes = JSONObject.toJSONBytes(json);
+            return new ProducerRecord<>(SINK_TOPIC, bytes);
         }, properties, FlinkKafkaProducer.Semantic.EXACTLY_ONCE);
         dataStream.addSink(sink);
 
