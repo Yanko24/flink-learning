@@ -1,5 +1,6 @@
 package com.yankee.connector;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.common.typeinfo.Types;
@@ -9,8 +10,12 @@ import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;
+import org.apache.flink.streaming.connectors.kafka.KafkaSerializationSchema;
 import org.apache.flink.streaming.connectors.kafka.internals.KafkaTopicPartition;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -21,6 +26,9 @@ import java.util.Properties;
  * @date 2021/11/23 10:53
  */
 public class KafkaSource {
+    private static final String SOURCE_TOPIC = "test";
+    private static final String SINK_TOPIC = "test2";
+
     public static void main(String[] args) throws Exception {
         // 获取流执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -31,7 +39,7 @@ public class KafkaSource {
         properties.setProperty("group.id", "test");
 
         // consumer设置
-        FlinkKafkaConsumer<String> consumer = new FlinkKafkaConsumer<>("test", new SimpleStringSchema(), properties);
+        FlinkKafkaConsumer<String> consumer = new FlinkKafkaConsumer<>(SOURCE_TOPIC, new SimpleStringSchema(), properties);
         // 设置kafka消费的offset
         HashMap<KafkaTopicPartition, Long> specificStartOffsets = new HashMap<>();
         specificStartOffsets.put(new KafkaTopicPartition("test", 0), 0L);
@@ -53,7 +61,16 @@ public class KafkaSource {
                 .sum(1);
 
         // 添加ksink
-        dataStream.print();
+        FlinkKafkaProducer<Tuple2<String, Integer>> sink = new FlinkKafkaProducer<>(SINK_TOPIC, new KafkaSerializationSchema<Tuple2<String, Integer>>() {
+            @Override
+            public ProducerRecord<byte[], byte[]> serialize(Tuple2<String, Integer> value, @Nullable Long aLong) {
+                JSONObject json = new JSONObject();
+                json.put(value.f0, value.f1);
+                byte[] bytes = JSONObject.toJSONBytes(json);
+                return new ProducerRecord<>(SINK_TOPIC, bytes);
+            }
+        }, properties, FlinkKafkaProducer.Semantic.EXACTLY_ONCE);
+        dataStream.addSink(sink);
 
         // 提交执行
         env.execute("Kafka-Connector WindowWordCount");
