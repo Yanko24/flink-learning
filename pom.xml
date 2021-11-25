@@ -14,6 +14,7 @@
         <module>oggkafka</module>
         <module>flink-learning-sql</module>
         <module>flink-learning-streaming</module>
+        <module>flink-learning-sink</module>
     </modules>
 
     <properties>
