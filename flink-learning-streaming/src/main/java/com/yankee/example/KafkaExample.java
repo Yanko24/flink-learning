@@ -1,6 +1,7 @@
 package com.yankee.example;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.restartstrategy.RestartStrategies;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.utils.ParameterTool;
@@ -12,8 +13,6 @@ import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;
 import org.apache.flink.streaming.connectors.kafka.KafkaSerializationSchema;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-import javax.annotation.Nullable;
-
 /**
  * @author Yankee
  * @version 1.0
@@ -22,7 +21,7 @@ import javax.annotation.Nullable;
  */
 public class KafkaExample {
     public static void main(String[] args) throws Exception {
-        final ParameterTool parameterTool = ParameterTool.fromArgs(args);
+        final ParameterTool parameterTool = ParameterTool.fromPropertiesFile("classpath://kafka-example.properties");
 
         // 获取流执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -42,26 +41,20 @@ public class KafkaExample {
                                 new UserSchema(),
                                 parameterTool.getProperties()
                         )
-                        // .assignTimestampsAndWatermarks(new CustomWatermarkExtractor())
                 ).keyBy(new KeySelector<User, String>() {
                     @Override
                     public String getKey(User user) throws Exception {
                         return user.getUsername();
                     }
                 })
-                // .map(new RollingAdditionMapper())
+                .map((MapFunction<User, User>) user -> user)
                 .shuffle();
 
         // 添加sink
         input.addSink(
-                new FlinkKafkaProducer<User>(
+                new FlinkKafkaProducer<>(
                         parameterTool.getRequired("output-topic"),
-                        new KafkaSerializationSchema<User>() {
-                            @Override
-                            public ProducerRecord<byte[], byte[]> serialize(User user, @Nullable Long aLong) {
-                                return new ProducerRecord<>("topic", JSONObject.toJSONBytes(user));
-                            }
-                        },
+                        (KafkaSerializationSchema<User>) (user, aLong) -> new ProducerRecord<>("topic", JSONObject.toJSONBytes(user)),
                         parameterTool.getProperties(),
                         FlinkKafkaProducer.Semantic.AT_LEAST_ONCE
                 )
