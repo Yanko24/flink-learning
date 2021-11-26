@@ -1,17 +1,14 @@
 package com.yankee.example;
 
-import com.alibaba.fastjson.JSONObject;
-import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.common.restartstrategy.RestartStrategies;
-import org.apache.flink.api.java.functions.KeySelector;
+import com.yankee.example.util.ConfigUtil;
+import com.yankee.example.util.EnvironmentUtil;
+import com.yankee.example.util.KafkaSinkUtil;
+import com.yankee.example.util.KafkaSourceUtil;
 import org.apache.flink.api.java.utils.ParameterTool;
-import org.apache.flink.streaming.api.TimeCharacteristic;
-import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
-import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;
-import org.apache.flink.streaming.connectors.kafka.KafkaSerializationSchema;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Yankee
@@ -20,47 +17,24 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  * @date 2021/11/24 16:26
  */
 public class KafkaExample {
-    public static void main(String[] args) throws Exception {
-        final ParameterTool parameterTool = ParameterTool.fromPropertiesFile("classpath://kafka-example.properties");
+    private static final Logger log = LoggerFactory.getLogger(KafkaExample.class);
 
-        // 获取流执行环境
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        // 设置重启策略
-        env.getConfig().setRestartStrategy(RestartStrategies.fixedDelayRestart(4, 10000));
-        // 设置checkpoint
-        env.enableCheckpointing(5000);
-        // 设置全局参数
-        env.getConfig().setGlobalJobParameters(parameterTool);
-        // 设置时间语义
-        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
-
-        // 添加source
-        DataStream<User> input = env.addSource(
-                        new FlinkKafkaConsumer<>(
-                                parameterTool.getRequired("input-topic"),
-                                new UserSchema(),
-                                parameterTool.getProperties()
-                        )
-                ).keyBy(new KeySelector<User, String>() {
-                    @Override
-                    public String getKey(User user) throws Exception {
-                        return user.getUsername();
-                    }
-                })
-                .map((MapFunction<User, User>) user -> user)
-                .shuffle();
-
-        // 添加sink
-        input.addSink(
-                new FlinkKafkaProducer<>(
-                        parameterTool.getRequired("output-topic"),
-                        (KafkaSerializationSchema<User>) (user, aLong) -> new ProducerRecord<>("topic", JSONObject.toJSONBytes(user)),
-                        parameterTool.getProperties(),
-                        FlinkKafkaProducer.Semantic.AT_LEAST_ONCE
-                )
-        );
-
-        // 提交任务执行
-        env.execute("Kafka-Example");
+    public static void main(String[] args) {
+        try {
+            ParameterTool parameterTool = new ConfigUtil().loadConfig(args);
+            // 创建env并配置
+            StreamExecutionEnvironment env = EnvironmentUtil.getEnv(parameterTool, "event");
+            // 设置kafka-source
+            DataStreamSource<String> kafkaStream = env.addSource(KafkaSourceUtil.getKafkaConsumer(parameterTool))
+                    .setParallelism(parameterTool.getInt("flink.source.parallelism"));
+            // 设置kafka-sink
+            kafkaStream.addSink(KafkaSinkUtil.getKafkaProducer(parameterTool))
+                    .setParallelism(parameterTool.getInt("flink.sink.parallelism"));
+            // 提交作业
+            env.execute("Flink Program: " + KafkaExample.class);
+        } catch (Exception e) {
+            log.error("Encounter Error: ", e);
+            System.exit(1);
+        }
     }
 }
