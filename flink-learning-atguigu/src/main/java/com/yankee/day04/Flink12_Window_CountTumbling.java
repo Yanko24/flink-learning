@@ -31,7 +31,7 @@ public class Flink12_Window_CountTumbling {
         env.setParallelism(1);
 
         // 2.从Socket读取数据
-        DataStreamSource<String> socketTextStream = env.socketTextStream("162.14.107.244", 9999);
+        DataStreamSource<String> socketTextStream = env.socketTextStream("hadoop04", 9999);
 
         // 3.将数据转换成tuple2
         SingleOutputStreamOperator<Tuple2<String, Integer>> oneToWordsDS = socketTextStream.flatMap((FlatMapFunction<String, Tuple2<String, Integer>>) (value, out) -> {

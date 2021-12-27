@@ -35,7 +35,7 @@ public class Flink10_Window_TimeSliding {
         env.setParallelism(1);
 
         // 2.从Socket读取数据
-        DataStreamSource<String> socketTextStream = env.socketTextStream("162.14.107.244", 9999);
+        DataStreamSource<String> socketTextStream = env.socketTextStream("hadoop04", 9999);
 
         // 3.将数据处理成元组
         SingleOutputStreamOperator<Tuple2<String, Integer>> wordToOneDS = socketTextStream.flatMap((FlatMapFunction<String, Tuple2<String, Integer>>) (value, out) -> {

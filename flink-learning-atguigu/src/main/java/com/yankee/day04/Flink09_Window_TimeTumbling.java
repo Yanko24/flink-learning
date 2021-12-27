@@ -29,7 +29,7 @@ public class Flink09_Window_TimeTumbling {
         env.setParallelism(1);
 
         // 2.读取端口数据
-        DataStreamSource<String> socketTextStream = env.socketTextStream("162.14.107.244", 9999);
+        DataStreamSource<String> socketTextStream = env.socketTextStream("hadoop04", 9999);
 
         // 3.压平并转换为元组
         SingleOutputStreamOperator<Tuple2<String, Integer>> wordToOneDS = socketTextStream.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {

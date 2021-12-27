@@ -27,7 +27,7 @@ public class Flink08_Process_SideOutput {
         env.setParallelism(1);
 
         // 2.获取数据并转换成JavaBean
-        SingleOutputStreamOperator<WaterSensor_Java> waterSensorDS = env.socketTextStream("162.14.107.244", 9999)
+        SingleOutputStreamOperator<WaterSensor_Java> waterSensorDS = env.socketTextStream("hadoop04", 9999)
                 .map((MapFunction<String, WaterSensor_Java>) (value) -> {
                     String[] split = value.split(",");
                     return new WaterSensor_Java(split[0], Long.parseLong(split[1]), Integer.parseInt(split[2]));

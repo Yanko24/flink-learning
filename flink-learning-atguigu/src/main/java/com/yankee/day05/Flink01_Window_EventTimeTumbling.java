@@ -34,7 +34,7 @@ public class Flink01_Window_EventTimeTumbling {
         env.setParallelism(1);
 
         // 2.从Socket读取数据
-        DataStreamSource<String> socketTextStream = env.socketTextStream("162.14.107.244", 9999);
+        DataStreamSource<String> socketTextStream = env.socketTextStream("hadoop04", 9999);
 
         // 3.将数据转换成Tuple2
         SingleOutputStreamOperator<WaterSensor_Java> waterSensorDS = socketTextStream.flatMap(new FlatMapFunction<String, WaterSensor_Java>() {

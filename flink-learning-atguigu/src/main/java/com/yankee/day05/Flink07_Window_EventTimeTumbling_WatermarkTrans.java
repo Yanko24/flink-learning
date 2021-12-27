@@ -44,7 +44,7 @@ public class Flink07_Window_EventTimeTumbling_WatermarkTrans {
         //         });
 
         // 2.从Socket读取数据
-        DataStreamSource<String> socketTextStream = env.socketTextStream("162.14.107.244", 9999);
+        DataStreamSource<String> socketTextStream = env.socketTextStream("hadoop04", 9999);
 
         // 3.将数据转换成Tuple2
         SingleOutputStreamOperator<WaterSensor_Java> waterSensorDS = socketTextStream

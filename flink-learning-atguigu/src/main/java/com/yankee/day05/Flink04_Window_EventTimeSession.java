@@ -33,7 +33,7 @@ public class Flink04_Window_EventTimeSession {
         env.setParallelism(1);
 
         // 2.从Socket获取数据
-        DataStreamSource<String> socketTextStream = env.socketTextStream("162.14.107.244", 9999);
+        DataStreamSource<String> socketTextStream = env.socketTextStream("hadoop04", 9999);
 
         // 3.转换成JavaBean
         SingleOutputStreamOperator<WaterSensor_Java> waterSensorDS = socketTextStream.map(new MapFunction<String, WaterSensor_Java>() {

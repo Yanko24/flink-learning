@@ -31,7 +31,7 @@ public class Flink11_Window_TimeSession {
         env.setParallelism(1);
 
         // 2.从Socket获取数据
-        DataStreamSource<String> socketTextStream = env.socketTextStream("162.14.107.244", 9999);
+        DataStreamSource<String> socketTextStream = env.socketTextStream("hadoop04", 9999);
 
         // 3.将数据转成tuple
         SingleOutputStreamOperator<Tuple2<String, Integer>> oneToWordDS = socketTextStream.flatMap((FlatMapFunction<String, Tuple2<String, Integer>>) (value, out) -> {
