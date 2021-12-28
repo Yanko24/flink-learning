@@ -23,7 +23,7 @@ public class Flink05_WordCount_Reduce {
         env.setParallelism(1);
 
         // 2.从文件中读取数据
-        DataStreamSource<String> readTextFile = env.readTextFile("input/word.txt");
+        DataStreamSource<String> readTextFile = env.readTextFile("flink-learning-atguigu/input/word.txt");
 
         // 3.flatmap
         SingleOutputStreamOperator<Tuple2<String, Integer>> wordToDS = readTextFile.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {

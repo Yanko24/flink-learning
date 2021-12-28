@@ -35,7 +35,7 @@ public class Flink01_DistinctByWordCount {
                 }
             }
         })
-                .keyBy(0)
+                .keyBy(data -> data.f0)
                 .sum(1)
                 .filter(new FilterFunction<Tuple2<String, Integer>>() {
                     @Override

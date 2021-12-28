@@ -9,7 +9,6 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
 
-import java.io.StreamCorruptedException;
 import java.util.HashMap;
 
 /**
@@ -18,7 +17,7 @@ import java.util.HashMap;
  * @description
  * @since 2021/7/14
  */
-public class Flink04_WordCount_NoSum {
+public class Flink04_WordCount_Process {
     public static void main(String[] args) throws Exception {
         // 1.获取流执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -26,7 +25,7 @@ public class Flink04_WordCount_NoSum {
         env.setParallelism(1);
 
         // 2.从文件中读取数据
-        DataStreamSource<String> readTextFile = env.readTextFile("input/word.txt");
+        DataStreamSource<String> readTextFile = env.readTextFile("flink-learning-atguigu/input/word.txt");
 
         // 3.flatmap
         SingleOutputStreamOperator<Tuple2<String, Integer>> wordToDS = readTextFile.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
