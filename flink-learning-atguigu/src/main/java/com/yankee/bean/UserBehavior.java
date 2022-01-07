@@ -14,13 +14,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserBehavior {
+    /**
+     * 用户Id
+     */
     private Long userId;
 
+    /**
+     * itemId
+     */
     private Long itemId;
 
+    /**
+     * 分类Id
+     */
     private Integer categoryId;
 
     private String behavior;
 
+    /**
+     * 时间戳
+     */
     private Long timestamp;
 }

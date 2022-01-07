@@ -32,8 +32,8 @@ public class Flink06_Transform_Repartition {
         // 随机到某个分区
         // socketDS.shuffle().print("Shuffle");
         // 随机第一个分区，之后开始分区+1进行轮训
-        // socketDS.rebalance().print("Rebalance");
-        // socketDS.rescale().print("Rescale");
+        socketDS.rebalance().print("Rebalance");
+        socketDS.rescale().print("Rescale");
         // 所有数据发到0号分区
         // socketDS.global().print("Global");
         // 报错，socket并行度为1，print并行度为8
