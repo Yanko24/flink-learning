@@ -2,34 +2,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>flink-learning</artifactId>
+        <groupId>com.yankee</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.yankee</groupId>
-    <artifactId>flink-learning</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>oggkafka</module>
-        <module>flink-learning-atguigu</module>
-        <module>flink-learning-streaming</module>
-        <module>flink-learning-sql</module>
-        <module>flink-learning-sql/queries</module>
-        <module>flink-learning-connector</module>
-        <module>flink-learning-connector/flink-learning-connector-kafka</module>
-        <module>flink-learning-cdc</module>
-        <module>flink-learning-cdc/cdc-mysql</module>
-        <module>flink-learning-demo</module>
-        <module>flink-learning-demo/mysql</module>
-    </modules>
+
+    <artifactId>flink-learning-connector</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <scala.binary.version>2.12</scala.binary.version>
+        <flink.version>1.13.3</flink.version>
         <slf4j.version>1.7.30</slf4j.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -104,4 +103,5 @@
             </plugins>
         </pluginManagement>
     </build>
+
 </project>

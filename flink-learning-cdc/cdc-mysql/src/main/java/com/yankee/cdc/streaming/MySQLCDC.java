@@ -1,4 +1,4 @@
-package com.yankee.streaming;
+package com.yankee.cdc.streaming;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ververica.cdc.connectors.mysql.source.MySqlSource;
