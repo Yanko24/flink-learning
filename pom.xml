@@ -18,6 +18,8 @@
         <module>flink-learning-demo/mysql</module>
         <module>flink-learning-cdc</module>
         <module>flink-learning-cdc/cdc-mysql</module>
+        <module>flink-learning-sql/connector-kafka</module>
+        <module>flink-learning-sql/queries</module>
     </modules>
 
     <properties>
