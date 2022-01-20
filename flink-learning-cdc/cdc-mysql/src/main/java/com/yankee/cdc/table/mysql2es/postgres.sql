@@ -14,3 +14,9 @@ INSERT INTO shipments
 VALUES (default,10001,'Beijing','Shanghai',false),
        (default,10002,'Hangzhou','Shanghai',false),
        (default,10003,'Shanghai','Hangzhou',false);
+
+-- Flink程序运行成功后
+INSERT INTO shipments
+VALUES (default,10004,'Shanghai','Beijing',false);
+
+UPDATE shipments SET is_arrived = true WHERE shipment_id = 1004;

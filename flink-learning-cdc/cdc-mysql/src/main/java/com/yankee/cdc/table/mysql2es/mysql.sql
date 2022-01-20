@@ -38,3 +38,11 @@ INSERT INTO orders
 VALUES (default, '2020-07-30 10:08:22', 'Jark', 50.50, 102, false),
        (default, '2020-07-30 10:11:09', 'Sally', 15.00, 105, false),
        (default, '2020-07-30 12:00:30', 'Edward', 25.25, 106, false);
+
+-- Flink任务运行成功后
+INSERT INTO orders
+VALUES (default, '2020-07-30 15:22:00', 'Jark', 29.71, 104, false);
+
+UPDATE orders SET order_status = true WHERE order_id = 10004;
+
+DELETE FROM orders WHERE order_id = 10004;
