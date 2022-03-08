@@ -1,4 +1,4 @@
-package com.yankee.practice;
+package com.yankee.day07;
 
 import com.yankee.bean.WaterSensor_Java;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
@@ -22,8 +22,8 @@ import java.time.Duration;
  * @description TODO
  * @date 2021/12/28 10:21
  */
-public class Flink06_WaterSensor_Slide_SideOutput {
-    private static final Logger LOG = LoggerFactory.getLogger(Flink06_WaterSensor_Slide_SideOutput.class);
+public class Flink01_WaterSensor_Slide_SideOutput {
+    private static final Logger LOG = LoggerFactory.getLogger(Flink01_WaterSensor_Slide_SideOutput.class);
 
     public static void main(String[] args) throws Exception {
         // get the stream execution environment

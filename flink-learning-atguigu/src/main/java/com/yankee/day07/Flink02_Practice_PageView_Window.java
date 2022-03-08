@@ -1,4 +1,4 @@
-package com.yankee.practice;
+package com.yankee.day07;
 
 import com.yankee.bean.UserBehavior;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
@@ -17,8 +17,8 @@ import org.slf4j.LoggerFactory;
  * @description TODO
  * @date 2021/12/28 14:31
  */
-public class Flink07_Practice_PageView_Window {
-    private static final Logger LOG = LoggerFactory.getLogger(Flink07_Practice_PageView_Window.class);
+public class Flink02_Practice_PageView_Window {
+    private static final Logger LOG = LoggerFactory.getLogger(Flink02_Practice_PageView_Window.class);
 
     public static void main(String[] args) throws Exception {
         // 1.获取流执行环境

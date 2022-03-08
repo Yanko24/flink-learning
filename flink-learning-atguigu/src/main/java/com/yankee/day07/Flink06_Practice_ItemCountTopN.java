@@ -1,4 +1,4 @@
-package com.yankee.practice;
+package com.yankee.day07;
 
 import com.yankee.bean.ItemCount;
 import com.yankee.bean.UserBehavior;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * @description TODO
  * @date 2022/2/21 10:24
  */
-public class Flink11_Practice_ItemCountTopN {
+public class Flink06_Practice_ItemCountTopN {
     public static void main(String[] args) throws Exception {
         // 1.获取流执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

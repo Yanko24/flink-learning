@@ -1,4 +1,4 @@
-package com.yankee.practice;
+package com.yankee.day07;
 
 import com.yankee.bean.UserBehavior;
 import com.yankee.bean.UserVisitorCount;
@@ -24,8 +24,8 @@ import java.util.Iterator;
  * @description TODO
  * @date 2021/12/29 11:00
  */
-public class Flink09_Practice_UserVisitor_Window {
-    private static final Logger LOG = LoggerFactory.getLogger(Flink09_Practice_UserVisitor_Window.class);
+public class Flink04_Practice_UserVisitor_Window {
+    private static final Logger LOG = LoggerFactory.getLogger(Flink04_Practice_UserVisitor_Window.class);
 
     public static void main(String[] args) throws Exception {
         // 1.获取流执行环境

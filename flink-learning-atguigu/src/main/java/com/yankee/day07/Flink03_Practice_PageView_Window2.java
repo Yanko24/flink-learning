@@ -1,4 +1,4 @@
-package com.yankee.practice;
+package com.yankee.day07;
 
 import com.yankee.bean.PageViewCount;
 import com.yankee.bean.UserBehavior;
@@ -32,8 +32,8 @@ import java.util.Random;
  * @description TODO
  * @date 2021/12/28 14:31
  */
-public class Flink08_Practice_PageView_Window2 {
-    private static final Logger LOG = LoggerFactory.getLogger(Flink08_Practice_PageView_Window2.class);
+public class Flink03_Practice_PageView_Window2 {
+    private static final Logger LOG = LoggerFactory.getLogger(Flink03_Practice_PageView_Window2.class);
 
     public static void main(String[] args) throws Exception {
         // 1.获取流执行环境
