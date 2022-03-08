@@ -42,11 +42,12 @@ public class Flink02_Practice_HotUrl {
     public static void main(String[] args) throws Exception {
         // 1.获取流执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.setParallelism(1);
 
         // 2.读取数据并转换为JavaBean
         SingleOutputStreamOperator<ApacheLog> apacheLogDS = env
                 // .readTextFile("flink-learning-atguigu/input/apache.log")
-                .socketTextStream("hadoop04", 9999)
+                .socketTextStream("localhost", 9999)
                 .map(new MapFunction<String, ApacheLog>() {
                     @Override
                     public ApacheLog map(String value) throws Exception {
@@ -56,7 +57,8 @@ public class Flink02_Practice_HotUrl {
                     }
                 }).filter(data -> "GET".equals(data.getMethod()))
                 .assignTimestampsAndWatermarks(WatermarkStrategy
-                        .<ApacheLog>forBoundedOutOfOrderness(Duration.ofSeconds(2)).withTimestampAssigner(new SerializableTimestampAssigner<ApacheLog>() {
+                        .<ApacheLog>forBoundedOutOfOrderness(Duration.ofSeconds(1))
+                        .withTimestampAssigner(new SerializableTimestampAssigner<ApacheLog>() {
                             @Override
                             public long extractTimestamp(ApacheLog element, long recordTimestamp) {
                                 return element.getTs();
@@ -150,13 +152,14 @@ public class Flink02_Practice_HotUrl {
             ctx.timerService().registerEventTimeTimer(value.getWindowEnd() + 1L);
 
             // 注册定时器，专门用于清空状态，真正关闭后清空状态
-            ctx.timerService().registerEventTimeTimer(value.getWindowEnd() + 121001L);
+            ctx.timerService().registerEventTimeTimer(value.getWindowEnd() + 61001L);
         }
 
         @Override
         public void onTimer(long timestamp, KeyedProcessFunction<Long, UrlCount, String>.OnTimerContext ctx, Collector<String> out) throws Exception {
-            if (timestamp == ctx.getCurrentKey() + 121001L) {
+            if (timestamp == ctx.getCurrentKey() + 61001L) {
                 mapState.clear();
+                return;
             }
 
             // 提取状态中的数据

@@ -159,6 +159,8 @@ public class Flink01_Practice_HotUrl {
         public void onTimer(long timestamp, KeyedProcessFunction<Long, UrlCount, String>.OnTimerContext ctx, Collector<String> out) throws Exception {
             if (timestamp == ctx.getCurrentKey() + 61001L) {
                 listState.clear();
+                // 如果不return，状态内容已经清空，打印没有意义
+                return;
             }
 
             // 提取状态中的数据
