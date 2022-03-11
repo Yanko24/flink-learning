@@ -24,8 +24,8 @@ public class Flink06_Practice_OrderPay {
 
         // 读取数据并转换成JavaBean，并提取时间生成watermark
         SingleOutputStreamOperator<OrderEvent> orderEventDS = env
-                .socketTextStream("localhost", 9999)
-                // .readTextFile("flink-learning-atguigu/input/OrderLog.csv")
+                // .socketTextStream("localhost", 9999)
+                .readTextFile("flink-learning-atguigu/input/OrderLog.csv")
                 .map(data -> {
                     String[] datas = data.split(",");
                     return new OrderEvent(Long.parseLong(datas[0]), datas[1], datas[2], Long.parseLong(datas[3]));
@@ -83,7 +83,6 @@ public class Flink06_Practice_OrderPay {
 
                 // 注册定时器
                 long ts = (value.getEventTime() + interval * 60) * 1000L;
-                System.out.println(new Timestamp(ts));
                 ctx.timerService().registerEventTimeTimer(ts);
                 // 将ts放入状态中存储，当收到付款数据后以便后续进行删除定时器
                 timeState.update(ts);
