@@ -19,7 +19,6 @@
         <module>flink-learning-cdc</module>
         <module>flink-learning-cdc/cdc-mysql</module>
         <module>flink-learning-demo</module>
-        <module>flink-learning-demo/mysql</module>
     </modules>
 
     <properties>
