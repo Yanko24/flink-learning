@@ -29,6 +29,9 @@ public class Flink14_Transform_Connect {
         // 4.Conversion operator connect.
         ConnectedStreams<String, Integer> connectDS = stringDS.connect(intDS);
 
+        connectDS.getFirstInput().print("first");
+        connectDS.getSecondInput().print("second");
+
         // 5.Call the map method.
         SingleOutputStreamOperator<Object> result = connectDS.map(new CoMapFunction<String, Integer, Object>() {
             @Override
