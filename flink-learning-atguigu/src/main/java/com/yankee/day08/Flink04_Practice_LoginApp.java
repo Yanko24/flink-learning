@@ -1,7 +1,7 @@
 package com.yankee.day08;
 
+import com.google.common.collect.Lists;
 import com.yankee.bean.LoginEvent;
-import org.apache.commons.compress.utils.Lists;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.state.ListState;

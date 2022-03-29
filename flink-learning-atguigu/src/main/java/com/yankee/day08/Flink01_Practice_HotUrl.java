@@ -1,8 +1,8 @@
 package com.yankee.day08;
 
+import com.google.common.collect.Lists;
 import com.yankee.bean.ApacheLog;
 import com.yankee.bean.UrlCount;
-import org.apache.commons.compress.utils.Lists;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.AggregateFunction;

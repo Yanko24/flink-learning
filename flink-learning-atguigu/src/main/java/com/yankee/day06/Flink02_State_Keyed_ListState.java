@@ -1,7 +1,7 @@
 package com.yankee.day06;
 
+import com.google.common.collect.Lists;
 import com.yankee.bean.WaterSensor_Java;
-import org.apache.commons.compress.utils.Lists;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.common.state.ListState;
