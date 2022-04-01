@@ -1,3 +1,15 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Flink快速上手](#flink%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B)
+  - [1. 引入Flink相关jar包](#1-%E5%BC%95%E5%85%A5flink%E7%9B%B8%E5%85%B3jar%E5%8C%85)
+  - [2. 批处理WordCount](#2-%E6%89%B9%E5%A4%84%E7%90%86wordcount)
+  - [3. 有界流处理WordCount](#3-%E6%9C%89%E7%95%8C%E6%B5%81%E5%A4%84%E7%90%86wordcount)
+  - [4. 无界流处理WordCount](#4-%E6%97%A0%E7%95%8C%E6%B5%81%E5%A4%84%E7%90%86wordcount)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 #### Flink快速上手
 
 ##### 1. 引入Flink相关jar包

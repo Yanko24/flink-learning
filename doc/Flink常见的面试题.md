@@ -1,3 +1,33 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Flink常见的面试题](#flink%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E8%AF%95%E9%A2%98)
+  - [1. Flink-On-Yarn常见的提交模式有哪些，分别有什么优缺点？](#1-flink-on-yarn%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8F%90%E4%BA%A4%E6%A8%A1%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%88%86%E5%88%AB%E6%9C%89%E4%BB%80%E4%B9%88%E4%BC%98%E7%BC%BA%E7%82%B9)
+    - [1. yarn-session](#1-yarn-session)
+    - [2. yarn-per-job](#2-yarn-per-job)
+    - [3. yarn-application](#3-yarn-application)
+  - [2. 怎么做压力测试和监控？](#2-%E6%80%8E%E4%B9%88%E5%81%9A%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%92%8C%E7%9B%91%E6%8E%A7)
+  - [3. Flink是通过什么机制实现的背压机制？](#3-flink%E6%98%AF%E9%80%9A%E8%BF%87%E4%BB%80%E4%B9%88%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E7%9A%84%E8%83%8C%E5%8E%8B%E6%9C%BA%E5%88%B6)
+  - [4. Flink的反压检测逻辑了解吗？](#4-flink%E7%9A%84%E5%8F%8D%E5%8E%8B%E6%A3%80%E6%B5%8B%E9%80%BB%E8%BE%91%E4%BA%86%E8%A7%A3%E5%90%97)
+  - [5. 为什么数据倾斜会造成反压？](#5-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C%E4%BC%9A%E9%80%A0%E6%88%90%E5%8F%8D%E5%8E%8B)
+  - [6. 反压有哪些危害呢？](#6-%E5%8F%8D%E5%8E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8D%B1%E5%AE%B3%E5%91%A2)
+  - [7. Flink中的数据倾斜有哪些解决方法？](#7-flink%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95)
+  - [8. 为什么使用Flink替代Spark？](#8-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8flink%E6%9B%BF%E4%BB%A3spark)
+  - [9. 如果下级存储不支持事务，Flink是如果保证exactly-once的？](#9-%E5%A6%82%E6%9E%9C%E4%B8%8B%E7%BA%A7%E5%AD%98%E5%82%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BA%8B%E5%8A%A1flink%E6%98%AF%E5%A6%82%E6%9E%9C%E4%BF%9D%E8%AF%81exactly-once%E7%9A%84)
+  - [10. Flink的状态机制是什么？](#10-flink%E7%9A%84%E7%8A%B6%E6%80%81%E6%9C%BA%E5%88%B6%E6%98%AF%E4%BB%80%E4%B9%88)
+    - [1. Raw State和ManagedState](#1-raw-state%E5%92%8Cmanagedstate)
+    - [2. KeyedState和OperatorState](#2-keyedstate%E5%92%8Coperatorstate)
+    - [3. 存储](#3-%E5%AD%98%E5%82%A8)
+  - [11. 海量key怎么去重？](#11-%E6%B5%B7%E9%87%8Fkey%E6%80%8E%E4%B9%88%E5%8E%BB%E9%87%8D)
+  - [12. Flink的checkpoint机制对比spark有什么不同和优势？](#12-flink%E7%9A%84checkpoint%E6%9C%BA%E5%88%B6%E5%AF%B9%E6%AF%94spark%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%E5%92%8C%E4%BC%98%E5%8A%BF)
+  - [13. 详细解释一下Flink的watermark机制？](#13-%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8Bflink%E7%9A%84watermark%E6%9C%BA%E5%88%B6)
+  - [14. Flink中的exactly-once语义如何实现的，状态如何存储的？](#14-flink%E4%B8%AD%E7%9A%84exactly-once%E8%AF%AD%E4%B9%89%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%8A%B6%E6%80%81%E5%A6%82%E4%BD%95%E5%AD%98%E5%82%A8%E7%9A%84)
+  - [15. Flink CEP编程中当状态没有到达的时候会将数据保存到哪里？](#15-flink-cep%E7%BC%96%E7%A8%8B%E4%B8%AD%E5%BD%93%E7%8A%B6%E6%80%81%E6%B2%A1%E6%9C%89%E5%88%B0%E8%BE%BE%E7%9A%84%E6%97%B6%E5%80%99%E4%BC%9A%E5%B0%86%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98%E5%88%B0%E5%93%AA%E9%87%8C)
+  - [16. Flink的三种时间语义是什么？应用场景是什么？](#16-flink%E7%9A%84%E4%B8%89%E7%A7%8D%E6%97%B6%E9%97%B4%E8%AF%AD%E4%B9%89%E6%98%AF%E4%BB%80%E4%B9%88%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E6%98%AF%E4%BB%80%E4%B9%88)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 #### Flink常见的面试题
 
 ##### 1. Flink-On-Yarn常见的提交模式有哪些，分别有什么优缺点？

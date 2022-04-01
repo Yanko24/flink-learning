@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Flink简介](#flink%E7%AE%80%E4%BB%8B)
+  - [1. 什么是Flink](#1-%E4%BB%80%E4%B9%88%E6%98%AFflink)
+  - [2. Flink的特点](#2-flink%E7%9A%84%E7%89%B9%E7%82%B9)
+    - [1. 事件驱动型](#1-%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E5%9E%8B)
+    - [2. 流与批的世界观](#2-%E6%B5%81%E4%B8%8E%E6%89%B9%E7%9A%84%E4%B8%96%E7%95%8C%E8%A7%82)
+    - [3. 分层API](#3-%E5%88%86%E5%B1%82api)
+  - [3. Flink和Spark](#3-flink%E5%92%8Cspark)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 #### Flink简介
 
 ##### 1. 什么是Flink

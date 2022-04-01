@@ -1,3 +1,24 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Flink的运行架构](#flink%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9E%B6%E6%9E%84)
+  - [1. 运行架构](#1-%E8%BF%90%E8%A1%8C%E6%9E%B6%E6%9E%84)
+    - [1. Client](#1-client)
+    - [2. JobManager](#2-jobmanager)
+    - [3. TaskManager](#3-taskmanager)
+  - [2. 核心概念](#2-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5)
+    - [1. TaskManager与Slots](#1-taskmanager%E4%B8%8Eslots)
+    - [2. Parallelism（并行度）](#2-parallelism%E5%B9%B6%E8%A1%8C%E5%BA%A6)
+    - [3. Task和subTask](#3-task%E5%92%8Csubtask)
+    - [4. Operator Chains（任务链）](#4-operator-chains%E4%BB%BB%E5%8A%A1%E9%93%BE)
+    - [5. Flink中的四种Graph](#5-flink%E4%B8%AD%E7%9A%84%E5%9B%9B%E7%A7%8Dgraph)
+  - [3. 提交流程](#3-%E6%8F%90%E4%BA%A4%E6%B5%81%E7%A8%8B)
+    - [1. 通用提交流程](#1-%E9%80%9A%E7%94%A8%E6%8F%90%E4%BA%A4%E6%B5%81%E7%A8%8B)
+    - [2. Yarn-cluster提交流程per-job](#2-yarn-cluster%E6%8F%90%E4%BA%A4%E6%B5%81%E7%A8%8Bper-job)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 #### Flink的运行架构
 
 ##### 1. 运行架构

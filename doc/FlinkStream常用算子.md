@@ -1,3 +1,37 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Flink Stream常用算子](#flink-stream%E5%B8%B8%E7%94%A8%E7%AE%97%E5%AD%90)
+  - [1. Environment](#1-environment)
+  - [2. Source](#2-source)
+    - [1. 从集合中获取数据](#1-%E4%BB%8E%E9%9B%86%E5%90%88%E4%B8%AD%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE)
+    - [2. 从文件中读取数据](#2-%E4%BB%8E%E6%96%87%E4%BB%B6%E4%B8%AD%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE)
+    - [3. 从Socket读取数据](#3-%E4%BB%8Esocket%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE)
+    - [4. 从kafka中获取数据](#4-%E4%BB%8Ekafka%E4%B8%AD%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE)
+    - [5. 自定义source](#5-%E8%87%AA%E5%AE%9A%E4%B9%89source)
+  - [3. Transform](#3-transform)
+    - [1. map](#1-map)
+    - [2. flatMap](#2-flatmap)
+    - [3. filter](#3-filter)
+    - [4. keyBy](#4-keyby)
+    - [5. shuffle](#5-shuffle)
+    - [6. rebalance](#6-rebalance)
+    - [7. rescale](#7-rescale)
+    - [8. glocal](#8-glocal)
+    - [9. forward](#9-forward)
+    - [10. 简单滚动聚合算子](#10-%E7%AE%80%E5%8D%95%E6%BB%9A%E5%8A%A8%E8%81%9A%E5%90%88%E7%AE%97%E5%AD%90)
+    - [11. connect](#11-connect)
+    - [12. union](#12-union)
+  - [4. Sink](#4-sink)
+    - [1. KafkaSink](#1-kafkasink)
+    - [2. RedisSink](#2-redissink)
+    - [3. ElasticSearchSink](#3-elasticsearchsink)
+    - [4. 自定义sink](#4-%E8%87%AA%E5%AE%9A%E4%B9%89sink)
+  - [5. 执行模式](#5-%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%BC%8F)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 #### Flink Stream常用算子
 
 其实对于所有的计算框架都是一样的，都分为以下四部分：

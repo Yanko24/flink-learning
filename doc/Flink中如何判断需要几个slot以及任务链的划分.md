@@ -1,3 +1,16 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Flink中判断需要几个slot以及任务链的划分](#flink%E4%B8%AD%E5%88%A4%E6%96%AD%E9%9C%80%E8%A6%81%E5%87%A0%E4%B8%AAslot%E4%BB%A5%E5%8F%8A%E4%BB%BB%E5%8A%A1%E9%93%BE%E7%9A%84%E5%88%92%E5%88%86)
+  - [1. 设置全局的并发](#1-%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E7%9A%84%E5%B9%B6%E5%8F%91)
+  - [2. 给某个算子单独设置并发](#2-%E7%BB%99%E6%9F%90%E4%B8%AA%E7%AE%97%E5%AD%90%E5%8D%95%E7%8B%AC%E8%AE%BE%E7%BD%AE%E5%B9%B6%E5%8F%91)
+  - [3. 设置不同的共享组](#3-%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E5%85%B1%E4%BA%AB%E7%BB%84)
+  - [4. 设置不同的共享组，组内设置并行度](#4-%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E5%85%B1%E4%BA%AB%E7%BB%84%E7%BB%84%E5%86%85%E8%AE%BE%E7%BD%AE%E5%B9%B6%E8%A1%8C%E5%BA%A6)
+  - [5. 其它方式切分任务链](#5-%E5%85%B6%E5%AE%83%E6%96%B9%E5%BC%8F%E5%88%87%E5%88%86%E4%BB%BB%E5%8A%A1%E9%93%BE)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 #### Flink中判断需要几个slot以及任务链的划分
 
 ##### 1. 设置全局的并发
