@@ -69,8 +69,6 @@ object OracleToElasticsearch {
         |)
         |""".stripMargin)
 
-
-
     // 创建sink-enrtiched_orders
     tEnv.executeSql(
       """
