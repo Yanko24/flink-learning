@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mongodb-es</artifactId>
+    <artifactId>oracle-es</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -85,7 +85,7 @@
 
         <dependency>
             <groupId>com.ververica</groupId>
-            <artifactId>flink-sql-connector-mongodb-cdc</artifactId>
+            <artifactId>flink-sql-connector-oracle-cdc</artifactId>
             <version>${flink.cdc.version}</version>
             <exclusions>
                 <exclusion>

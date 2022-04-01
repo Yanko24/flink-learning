@@ -1,0 +1,32 @@
+version: '2.1'
+services:
+  oracle:
+    image: yuxialuo/oracle-xe-11g-r2-cdc-demo:v1.0
+    container_name: oracle
+    ports:
+      - "1521:1521"
+  elasticsearch:
+    image: elastic/elasticsearch:7.16.2
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+  kibana:
+    image: elastic/kibana:7.16.2
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
