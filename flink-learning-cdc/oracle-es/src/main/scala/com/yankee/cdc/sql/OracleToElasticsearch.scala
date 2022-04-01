@@ -6,7 +6,7 @@ import org.apache.flink.table.api.{EnvironmentSettings, TableEnvironment}
 import java.time.ZoneId
 
 /**
- * @Description flink-cdc(mongodb-es)
+ * @Description flink-cdc(oracle-es)
  * @Date 2022/3/31 23:57
  * @Author yankee
  */
