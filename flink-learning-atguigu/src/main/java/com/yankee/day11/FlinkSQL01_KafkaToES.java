@@ -1,6 +1,6 @@
 package com.yankee.day11;
 
-import com.yankee.bean.WordToOne_Scala;
+import com.yankee.bean.WordToOne;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
@@ -34,12 +34,13 @@ public class FlinkSQL01_KafkaToES {
         FlinkKafkaConsumer<String> source = new FlinkKafkaConsumer<>("test", new SimpleStringSchema(), props);
 
         // 从kafka读取数据
-        SingleOutputStreamOperator<WordToOne_Scala> wordDS = env.addSource(source).flatMap(new FlatMapFunction<String, WordToOne_Scala>() {
+        SingleOutputStreamOperator<WordToOne> wordDS = env.addSource(source).flatMap(new FlatMapFunction<String,
+                WordToOne>() {
             @Override
-            public void flatMap(String value, Collector<WordToOne_Scala> out) throws Exception {
+            public void flatMap(String value, Collector<WordToOne> out) throws Exception {
                 String[] datas = value.split(",");
                 for (String data : datas) {
-                    out.collect(new WordToOne_Scala(data, 1));
+                    out.collect(new WordToOne(data, 1));
                 }
             }
         });
