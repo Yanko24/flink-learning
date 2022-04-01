@@ -17,7 +17,9 @@
         <module>flink-learning-connector</module>
         <module>flink-learning-connector/flink-learning-connector-kafka</module>
         <module>flink-learning-cdc</module>
-        <module>flink-learning-cdc/cdc-mysql</module>
+        <module>flink-learning-cdc/mongodb-es</module>
+        <module>flink-learning-cdc/oracle-es</module>
+        <module>flink-learning-cdc/mysql-postgres-es</module>
         <module>flink-learning-demo</module>
     </modules>
 
