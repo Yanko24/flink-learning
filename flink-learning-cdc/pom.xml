@@ -11,6 +11,9 @@
 
     <artifactId>flink-learning-cdc</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>mongodb-es</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
