@@ -16,7 +16,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <java.version>1.8</java.version>
         <scala.binary.version>2.12</scala.binary.version>
-        <flink.version>1.13.3</flink.version>
+        <flink.version>1.13.6</flink.version>
         <hadoop.version>2.4.1</hadoop.version>
     </properties>
 
@@ -46,12 +46,6 @@
             <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.apache.flink</groupId>-->
-<!--            <artifactId>flink-connector-kafka-0.11_${scala.binary.version}</artifactId>-->
-<!--            <version>${flink.version}</version>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.flink</groupId>

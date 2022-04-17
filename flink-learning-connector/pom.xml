@@ -12,6 +12,10 @@
 
     <artifactId>flink-learning-connector</artifactId>
 
+    <modules>
+        <module>flink-learning-connector-kafka</module>
+    </modules>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>

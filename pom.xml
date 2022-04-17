@@ -13,19 +13,19 @@
         <module>flink-learning-atguigu</module>
         <module>flink-learning-streaming</module>
         <module>flink-learning-sql</module>
-        <module>flink-learning-sql/queries</module>
         <module>flink-learning-connector</module>
-        <module>flink-learning-connector/flink-learning-connector-kafka</module>
         <module>flink-learning-cdc</module>
-        <module>flink-learning-cdc/mongodb-es</module>
-        <module>flink-learning-cdc/oracle-es</module>
-        <module>flink-learning-cdc/mysql-postgres-es</module>
         <module>flink-learning-demo</module>
+        <module>flink-learning-project</module>
     </modules>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <target.java.version>1.8</target.java.version>
+        <maven.compiler.source>${target.java.version}</maven.compiler.source>
+        <maven.compiler.target>${target.java.version}</maven.compiler.target>
+        <scala.binary.version>2.12</scala.binary.version>
+        <flink.version>1.14.4</flink.version>
         <slf4j.version>1.7.30</slf4j.version>
     </properties>
 
@@ -54,8 +54,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.1</version>
                     <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
+                        <source>${target.java.version}</source>
+                        <target>${target.java.version}</target>
                     </configuration>
                 </plugin>
 

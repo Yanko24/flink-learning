@@ -50,7 +50,8 @@ public class Flink04_Practice_UserVisitor_Window {
                 .filter(data -> "pv".equals(data.getBehavior()))
                 .assignTimestampsAndWatermarks(userBehaviorWatermarkStrategy)
                 .keyBy(UserBehavior::getBehavior)
-                .window(TumblingEventTimeWindows.of(Time.hours(1)))
+                // 主要原因是因为东八区比正常零时早8个小时
+                .window(TumblingEventTimeWindows.of(Time.hours(24), Time.hours(-8)))
                 // 使用HashSet
                 .process(new UserVisitorProcessWindowFunction())
                 .print();
