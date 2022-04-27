@@ -24,8 +24,6 @@
         <target.java.version>1.8</target.java.version>
         <maven.compiler.source>${target.java.version}</maven.compiler.source>
         <maven.compiler.target>${target.java.version}</maven.compiler.target>
-        <scala.binary.version>2.12</scala.binary.version>
-        <flink.version>1.14.4</flink.version>
         <slf4j.version>1.7.30</slf4j.version>
     </properties>
 
