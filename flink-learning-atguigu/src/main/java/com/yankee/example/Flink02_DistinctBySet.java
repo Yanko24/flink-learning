@@ -1,4 +1,4 @@
-package com.yankee.practice;
+package com.yankee.example;
 
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.functions.FlatMapFunction;

@@ -12,7 +12,6 @@
         <module>oggkafka</module>
         <module>flink-learning-atguigu</module>
         <module>flink-learning-streaming</module>
-        <module>flink-learning-sql</module>
         <module>flink-learning-connector</module>
         <module>flink-learning-cdc</module>
         <module>flink-learning-demo</module>
@@ -39,6 +38,12 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-to-slf4j</artifactId>
+                <version>2.17.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
