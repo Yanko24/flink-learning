@@ -21,8 +21,13 @@ public class FakeWindowKeyedProcessFunction extends KeyedProcessFunction<String,
 
     @Override
     public void open(Configuration parameters) throws Exception {
-        windowPvMapState = getRuntimeContext().getMapState(new MapStateDescriptor<Long, Long>("window-pv",
-                Types.LONG(), Types.LONG()));
+        MapStateDescriptor<Long, Long> mapStateDescriptor = new MapStateDescriptor<>("window-pv", Types.LONG(), Types.LONG());
+        // StateTtlConfig stateTtlConfig = StateTtlConfig.newBuilder(Time.seconds(1))
+        //         .setUpdateType(StateTtlConfig.UpdateType.OnCreateAndWrite)
+        //         .setStateVisibility(StateTtlConfig.StateVisibility.NeverReturnExpired)
+        //         .build();
+        // mapStateDescriptor.enableTimeToLive(stateTtlConfig);
+        windowPvMapState = getRuntimeContext().getMapState(mapStateDescriptor);
     }
 
     @Override

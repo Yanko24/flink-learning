@@ -12,6 +12,8 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
 
+import java.sql.Timestamp;
+
 public class AverageKeyedProcessFunction extends KeyedProcessFunction<String, Event, String> {
     // 定义AggregatingState，用来保存平均时间戳
     AggregatingState<Event, Long> averageState;
@@ -49,6 +51,20 @@ public class AverageKeyedProcessFunction extends KeyedProcessFunction<String, Ev
 
     @Override
     public void processElement(Event value, KeyedProcessFunction<String, Event, String>.Context ctx, Collector<String> out) throws Exception {
+        // 获取count
+        Long count = countState.value();
+        if (count == null) {
+            count = 1L;
+        } else {
+            count++;
+        }
+        countState.update(count);
+        averageState.add(value);
 
+        // 达到5次就输出结果
+        if (count == 5) {
+            out.collect(value.getUser() + " 平均时间戳: " + new Timestamp(averageState.get()));
+            countState.clear();
+        }
     }
 }
