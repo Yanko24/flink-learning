@@ -69,7 +69,7 @@ public class Flink05_Window_EventTimeTumbling_CustomerPeriodic {
         /**
          * 指定延迟
          */
-        private Long maxDelay;
+        private final Long maxDelay;
 
         public MyPeriod(Long maxDelay) {
             this.maxDelay = maxDelay;
@@ -78,8 +78,9 @@ public class Flink05_Window_EventTimeTumbling_CustomerPeriodic {
 
         /**
          * 当数据来的时候调用
-         * @param event
-         * @param eventTimestamp
+         *
+         * @param event          事件
+         * @param eventTimestamp 事件中的时间
          * @param output
          */
         @Override
@@ -91,6 +92,7 @@ public class Flink05_Window_EventTimeTumbling_CustomerPeriodic {
 
         /**
          * 被周期性调用
+         *
          * @param output
          */
         @Override

@@ -87,12 +87,6 @@
             <groupId>com.ververica</groupId>
             <artifactId>flink-sql-connector-mongodb-cdc</artifactId>
             <version>${flink.cdc.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>flink-shaded-guava</artifactId>
-                    <groupId>org.apache.flink</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>

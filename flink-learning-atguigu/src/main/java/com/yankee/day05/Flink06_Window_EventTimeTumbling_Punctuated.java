@@ -76,8 +76,9 @@ public class Flink06_Window_EventTimeTumbling_Punctuated {
 
         /**
          * 当数据来的时候调用
-         * @param event
-         * @param eventTimestamp
+         *
+         * @param event          事件
+         * @param eventTimestamp 事件中的时间
          * @param output
          */
         @Override
@@ -92,6 +93,7 @@ public class Flink06_Window_EventTimeTumbling_Punctuated {
 
         /**
          * 被周期性调用
+         *
          * @param output
          */
         @Override
