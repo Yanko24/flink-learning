@@ -15,7 +15,6 @@
         <module>flink-learning-connector</module>
         <module>flink-learning-cdc</module>
         <module>flink-learning-demo</module>
-        <module>flink-learning-project</module>
     </modules>
 
     <properties>
