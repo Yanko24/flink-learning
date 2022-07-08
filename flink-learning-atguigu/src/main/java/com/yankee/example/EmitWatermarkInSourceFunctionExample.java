@@ -23,7 +23,7 @@ public class EmitWatermarkInSourceFunctionExample {
 
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        env.setParallelism(1);
+        env.setParallelism(4);
 
         DataStreamSource<Event> streamSource = env.addSource(new ClickSourceWithWatermark());
 
